@@ -1,0 +1,14 @@
+extends layout
+block content
+    div(class="container-fluid")
+        div(class="d-flex justify-content-center text-center")
+            form(method='POST' action='')
+                div.form-group
+                    label(for="memberPass" class="h4") Enter Member Password
+                        input.form-control(type="password" placeholder="password" name="memberPass" required="true")
+                br
+                button.btn.btn-secondary(type='submit') Submit
+                br
+                if (errors)
+                    p= errors
+                    p= pass

@@ -1,0 +1,18 @@
+body {
+  padding: 50px;
+  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+  color: #8b8b8b;
+}
+
+a {
+  color: #8b8b8b;
+}
+
+.nav-link-custom {
+  font-size: 1.3vh;
+}
+
+.nav-brand-custom { 
+  font-size: 2.5vh;
+  font-weight: 600;
+}
