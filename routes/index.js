@@ -19,7 +19,7 @@ router.get('/', function(req, res, next) {
       }
     }, function (err, results) {
       if (err) { return next(err); }
-      res.render('home', { title: 'Welcome', posts: results.posts, loggedIn: true })
+      res.render('home', { title: 'Welcome', posts: results.posts })
     })
   } else {
     res.render('index', { title: 'Log in' });
@@ -27,11 +27,14 @@ router.get('/', function(req, res, next) {
   
 });
 
-router.post('/', function (req, res, next) {
-  //new post, moderation (delete post)
+// router.post('/postmessage', [
+//   body('')
 
-  
-})
+// ]);
+
+// router.post('/deletemessage', function (req, res, next) {
+
+// })
 router.post('/sign-in', [
     body('username').trim().escape(),
     body('password').trim().escape(),
