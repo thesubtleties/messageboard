@@ -58,9 +58,26 @@ router.post('/postmessage', [
   }}
 ]);
 
-// router.post('/deletemessage', function (req, res, next) {
+router.post('/deletemessage', [
+  body('postid', 'Not a valid post').escape(),
+  (req, res, next) => {
 
-// })
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      res.redirect('/')
+      return;
+    }
+    if (req.user.isAdmin === true) {
+      Post.findByIdAndRemove(req.body.postid, function(err) {
+        if (err) { return next(err); }
+        res.redirect('/');
+      })
+    }
+  }
+])
+
+
+
 router.post('/sign-in', [
     body('username').trim().escape(),
     body('password').trim().escape(),
