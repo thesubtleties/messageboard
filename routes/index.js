@@ -145,7 +145,7 @@ router.post('/membership', [
       res.render('/membership', { title: 'Member Access', errors: errors });
       return;
     }
-    if (req.body.memberPass === memberPass) {
+    if (req.body.memberPass === memberPass || req.body.memberPass === process.env.MEMBER_PASS) {
       const user = new User({
         member: true,
         _id: req.user._id
