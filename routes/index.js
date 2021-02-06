@@ -12,7 +12,7 @@ router.get('/', function(req, res, next) {
   if (req.user) {
     async.parallel({
       posts: function(callback) {
-        Post.find().exec(callback);
+        Post.find().sort({ datePosted: 'descending' }).populate('postedBy').exec(callback);
       },
       user: function(callback) {
         User.findById(req.user.id).exec(callback);
@@ -27,10 +27,36 @@ router.get('/', function(req, res, next) {
   
 });
 
-// router.post('/postmessage', [
-//   body('')
-
-// ]);
+router.post('/postmessage', [
+  body('newpost', '240 characters max.').trim().isLength({ min: 1, max: 240 }).escape(),
+  (req, res, next) => {
+    if (req.user) {
+    const errors = validationResult(req);
+    const post = new Post({
+      postedBy: req.user._id,
+      datePosted: new Date(),
+      body: req.body.newpost,
+    });
+    if (!errors.isEmpty()) {
+      Post.find().exec((err, posts) => {
+        if (err) { return  next(err); }
+        res.render('home', { title: 'Welcome', posts: posts, errors: errors.array() })
+        return;
+      })
+    } else {
+      post.save(function(err) {
+        if (err) {
+          Post.find().exec((error, posts) => {
+            if (error) { return next(err); }
+            res.render('home', { title: 'Welcome', posts: posts, error: err.message })
+          })
+        } else {
+          res.redirect('/');
+        }
+      })
+    }
+  }}
+]);
 
 // router.post('/deletemessage', function (req, res, next) {
 
