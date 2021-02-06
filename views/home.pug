@@ -8,18 +8,21 @@ block content
                 div(class="d-flex justify-content-center form-floating")
                     form(method='POST' action='/postmessage' class="form-floating w-50 post-input-container")
                         input(type="hidden" value=currentUser._id)
-                        textarea(class="form-control form-floating post-input" style="height: 150px" placeholder="" type="textarea" id="newpost" required)
+                        textarea(class="form-control form-floating post-input" style="height: 150px" placeholder="" type="textarea" id="newpost" name="newpost" required)
                         label(for="newpost") Go right ahead..
                         br
                         div(class="d-flex justify-content-end")
                             button(class="btn btn-secondary" type="submit") Submit
-            div(class="container w-25")
-                div(class="card")
-                    if (currentUser.member=true)
-                        div(class="card-header")
-                            div(class="card-title" style="font-size: .7vw") Posted By
-                            div(class="card-subtitle") Time
-                    div(class="card-body text-center post-body") Package managed installs don’t include documentation or our full build scripts. You can also use our npm template repo to quickly generate a Bootstrap project via npm.
+            if (posts.length > 0)
+                div(class="container w-25")
+                    for post in posts
+                        div(class="card card-margin")
+                            if (currentUser.member=true)
+                                div(class="card-header")
+                                    div(class="card-title" style="font-size: .7vw") #{post.postedBy.username}
+                                    div(class="card-subtitle") #{post.datePostedFormatted}
+                            div(class="card-body text-center post-body") #{post.body}
+                            
                         
 
 
