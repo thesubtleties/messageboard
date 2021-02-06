@@ -23,7 +23,8 @@ var UserSchema = new Schema({
     password: { type: String, required: true, minlength: 15 },
     member: { type: Boolean, default: false },
     joinDate: { type: Date, required: true },
-    postsBy: [{ type: Schema.Types.ObjectId, ref: 'Post'}]
+    postsBy: [{ type: Schema.Types.ObjectId, ref: 'Post'}],
+    isAdmin: { type: Boolean, default: false }
 })
 
 UserSchema
