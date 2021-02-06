@@ -19,8 +19,13 @@ block content
                         div(class="card card-margin")
                             if (currentUser.member=true)
                                 div(class="card-header")
-                                    div(class="card-title" style="font-size: .7vw") #{post.postedBy.username}
-                                    div(class="card-subtitle") #{post.datePostedFormatted}
+                                    div(class="card-inline")
+                                        div(class="card-title" style="font-size: .7vw") #{post.postedBy.username}
+                                        div(class="card-subtitle") #{post.datePostedFormatted}
+                                    if (currentUser.isAdmin)
+                                        form(method="POST" action="/deletemessage" class="delete-button")
+                                            input(type="hidden" name="postid" value=post._id)
+                                            button(class="btn btn-outline-danger delete-button") Delete
                             div(class="card-body text-center post-body") #{post.body}
                             
                         
