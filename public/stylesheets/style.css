@@ -27,3 +27,13 @@ a {
 .post-body {
   font-size: .7vw;
 }
+.card-margin {
+  margin: 20px;
+}
+.delete-button {
+  float: right;
+  display: inline-block;
+}
+.card-inline {
+  display: inline-block;
+}
