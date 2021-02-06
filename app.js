@@ -11,6 +11,8 @@ const mongoose = require('mongoose');
 var User = require('./models/user');
 const passport = require('passport');
 var nconf = require('nconf');
+var compression = require('compression');
+var helmet = require('helmet');
 
 
 
@@ -37,6 +39,7 @@ db.on('error', console.error.bind(console, 'MongoDB connection error:'));
 
 
 var app = express();
+app.use(helmet());
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -71,7 +74,7 @@ passport.deserializeUser(function(id, done) {
         done(err, user);
     });
 });
-
+app.use(compression());
 app.use(session({secret: "kitties", resave: false, saveUninitialized: true }));
 app.use(passport.initialize());
 app.use(passport.session());
